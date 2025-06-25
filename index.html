@@ -2,8 +2,7 @@
 <html>
 <body>
   <div class="container">
-    <h1>NationStates Dispatch</h1>
-    <div id="dispatch-content">Loading...</div>
+    <ul id="perk-title-list"></ul>
   </div>
 
   <script>
@@ -17,15 +16,24 @@
       const title = xml.querySelector("TITLE")?.textContent || "No title";
       const text = xml.querySelector("TEXT")?.textContent || "No content";
 
-      const startIndex = text.indexOf("[anchor=PERKS]PERKS[/anchor]");
+      const startString = "[anchor=LEVELING]LEVELING SYSTEM[/anchor]"
+      const startIndex = text.indexOf(startString) + startString.length();
       const endIndex = text.indexOf("[anchor=LEVELING]LEVELING SYSTEM[/anchor]");
 
       const trimmedText = text.substring(startIndex, endIndex);
 
-      document.getElementById("dispatch-content").innerHTML = `
-        <h2>${title}</h2>
-        <div>${trimmedText}</div>
-      `;
+      const titleRegex = /(?<=\[size=250\])(.*?)(?=\[\/size])/gi;
+      const titleMatches = [...trimmedText.matchAll(titleRegex)];
+
+      const listElement = document.getElementById('perk-title-list');
+      listElement.innerHTML = ``;
+
+      for (const match of titleMatches) {
+        const itemText = match[0];
+        const li = document.createElement('li');
+        li.textContent = itemText;
+        listElement.appendChild(li);
+      }
     })
     .catch(err => {
       document.getElementById("dispatch-content").innerText = "Failed to load dispatch.";
