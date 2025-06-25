@@ -22,9 +22,7 @@
 
       const trimmedText = text.substring(startIndex, endIndex);
 
-      console.log(trimmedText);
-
-      const titleRegex = /(?<=\[size=250\])(.*?)(?=\[\/size])/g;
+      const titleRegex = /(?<=\[size=250\])(.*?)(?:\[\/size] *\[size=150\])(.*?)(?:\[\/size] *\[size=150\])(.*?)(?=\[\/size\])/g;
       const titleMatches = trimmedText.matchAll(titleRegex);
 
       console.log(titleMatches);
@@ -33,6 +31,7 @@
       listElement.innerHTML = ``;
 
       for (const match of titleMatches) {
+        console.log(match);
         const itemText = match[0];
         const li = document.createElement('li');
         li.textContent = itemText;
