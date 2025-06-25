@@ -22,7 +22,9 @@
 
       const trimmedText = text.substring(startIndex, endIndex);
 
-      const titleRegex = /(?<=\[size=250\])(.*?)(?:\[\/size] *\[size=150\])(.*?)(?:\[\/size] *\[size=150\])(.*?)(?=\[\/size\])/g;
+      console.log(trimmedText);
+      
+      const titleRegex = /(?<=\[size=250\])(.*?)(?:\[\/size]\s*\[size=150\])(.*?)(?:\[\/size]\s*\[size=150\])(.*?)(?=\[\/size\])/g;
       const titleMatches = trimmedText.matchAll(titleRegex);
 
       console.log(titleMatches);
