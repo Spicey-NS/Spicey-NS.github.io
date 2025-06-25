@@ -22,8 +22,8 @@
 
       const trimmedText = text.substring(startIndex, endIndex);
 
-      const titleRegex = /(?<=\[size=250\])(.*?)(?=\[\/size])/gi;
-      const titleMatches = [...trimmedText.matchAll(titleRegex)];
+      const titleRegex = /(?<=\[size=250\])(.*?)(?=\[\/size])/g;
+      const titleMatches = trimmedText.match(titleRegex);
 
       console.log(titleMatches);
       
@@ -31,7 +31,7 @@
       listElement.innerHTML = ``;
 
       for (const match of titleMatches) {
-        const itemText = match[0];
+        const itemText = match;
         const li = document.createElement('li');
         li.textContent = itemText;
         listElement.appendChild(li);
