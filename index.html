@@ -17,9 +17,14 @@
       const title = xml.querySelector("TITLE")?.textContent || "No title";
       const text = xml.querySelector("TEXT")?.textContent || "No content";
 
+      const startIndex = text.indexOf("[anchor=PERKS]PERKS[/anchor]");
+      const endIndex = text.indexOf("[anchor=LEVELING]LEVELING SYSTEM[/anchor]");
+
+      const trimmedText = text.substring(startIndex, endIndex);
+
       document.getElementById("dispatch-content").innerHTML = `
         <h2>${title}</h2>
-        <div>${text}</div>
+        <div>${trimmedText}</div>
       `;
     })
     .catch(err => {
