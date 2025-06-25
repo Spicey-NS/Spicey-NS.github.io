@@ -17,7 +17,7 @@
       const text = xml.querySelector("TEXT")?.textContent || "No content";
 
       const startString = "[anchor=LEVELING]LEVELING SYSTEM[/anchor]"
-      const startIndex = text.indexOf(startString) + startString.length();
+      const startIndex = text.indexOf(startString) + startString.length;
       const endIndex = text.indexOf("[anchor=LEVELING]LEVELING SYSTEM[/anchor]");
 
       const trimmedText = text.substring(startIndex, endIndex);
