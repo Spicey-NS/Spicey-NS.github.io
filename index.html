@@ -25,6 +25,8 @@
       const titleRegex = /(?<=\[size=250\])(.*?)(?=\[\/size])/gi;
       const titleMatches = [...trimmedText.matchAll(titleRegex)];
 
+      console.log(titleMatches);
+      
       const listElement = document.getElementById('perk-title-list');
       listElement.innerHTML = ``;
 
