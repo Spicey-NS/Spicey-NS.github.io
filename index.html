@@ -2,7 +2,7 @@
 <html>
 <body>
   <div class="container">
-    <ul id="perk-title-list"></ul>
+    <div id="perk-title-list"></div>
   </div>
 
   <script>
@@ -34,10 +34,31 @@
 
       for (const match of titleMatches) {
         console.log(match);
-        const itemText = match[0];
-        const li = document.createElement('li');
-        li.textContent = itemText;
-        listElement.appendChild(li);
+        const perkTitle = match[1];
+        const reqs = match[2];
+        const desc = match[3];
+        
+        const card = document.createElement('div');
+        card.style.border = '1px solid #ccc';
+        card.style.borderRadius = '8px';
+        card.style.padding = '1rem';
+        card.style.marginBottom = '1rem';
+        card.style.backgroundColor = '#f9f9f9';
+
+        const h3 = document.createElement('h3');
+        h3.textContent = perkTitle;
+        card.appendChild(h3);
+      
+        const ul = document.createElement('ul');
+        const li1 = document.createElement('li');
+        li1.textContent = reqs;
+        ul.appendChild(li1);
+        const li2 = document.createElement('li');
+        li2.textContent = desc;
+        ul.appendChild(li2);
+      
+        card.appendChild(ul);
+        listElement.appendChild(card);
       }
     })
     .catch(err => {
