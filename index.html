@@ -36,6 +36,9 @@
         console.log(match);
         const perkTitle = match[1];
         const reqs = match[2];
+        const reqsRegex = /[1-9]\s*((survival)|(presence)|(civilization)|(army)|(economy)|(luck)|(intelligence))/gi;
+        const parsedReqs = match[2].match(reqsRegex)
+        console.log(parsedReqs);
         const desc = match[3];
         
         const card = document.createElement('div');
