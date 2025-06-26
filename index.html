@@ -65,7 +65,7 @@
       
         card.appendChild(ul);
         const data = {display: card, requirements: parsedReqs};
-        cardData.append(data)
+        cardData.push(data)
       }
     })
     .catch(err => {
@@ -87,7 +87,8 @@
 
     function renderCards() {
       const userStats = getCurrentStats();
-      cardList.innerHTML = ''; // Clear previous
+      const perkList = document.getElementById("perk-list");
+      perkList.innerHTML = ''; // Clear previous
 
       for (const card of cardData) {
         if (!meetsRequirements(userStats, card.requirements)) continue;
@@ -107,7 +108,7 @@
         }
 
         div.appendChild(ul);
-        cardList.appendChild(div);
+        perkList.appendChild(div);
       }
     }
 
