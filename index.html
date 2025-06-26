@@ -16,6 +16,7 @@
   </div>
 
   <script>
+    const stats = ["Survival", "Presence", "Economy", "Civilization", "Intelligence", "Army", "Luck"];
     fetch("https://www.nationstates.net/cgi-bin/api.cgi?q=dispatch;dispatchid=2669317", {
     })
     .then(response => response.text())
@@ -65,12 +66,57 @@
         ul.appendChild(li2);
       
         card.appendChild(ul);
-        listElement.appendChild(card);
+        const data = {display: card, requirements: parsedReqs};
       }
     })
     .catch(err => {
       console.error("Error:", err);
     });
+  function getCurrentStats() {
+      const values = {};
+      for (const stat of stats) {
+        values[stat] = parseInt(document.getElementById(stat).value) || 0;
+      }
+      return values;
+    }  
+  function meetsRequirements(userStats, requirements) {
+      for (const stat in requirements) {
+        if ((userStats[stat] || 0) < requirements[stat]) return false;
+      }
+      return true;
+    }
+
+    function renderCards() {
+      const userStats = getCurrentStats();
+      cardList.innerHTML = ''; // Clear previous
+
+      for (const card of cardData) {
+        if (!meetsRequirements(userStats, card.requirements)) continue;
+
+        const div = document.createElement('div');
+        div.className = 'card';
+
+        const h3 = document.createElement('h3');
+        h3.textContent = card.title;
+        div.appendChild(h3);
+
+        const ul = document.createElement('ul');
+        for (const bullet of card.bullets) {
+          const li = document.createElement('li');
+          li.textContent = bullet;
+          ul.appendChild(li);
+        }
+
+        div.appendChild(ul);
+        cardList.appendChild(div);
+      }
+    }
+
+    for (const stat of stats) {
+      document.getElementById(stat).addEventListener('input', renderCards);
+    }
+
+    renderCards();
   </script>
 </body>
 </html>
