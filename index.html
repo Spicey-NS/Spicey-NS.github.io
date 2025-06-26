@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 <body>
+  <h2>Set Your Stats</h2>
+  <div class="stats-inputs" id="stats">
+    <div class="stat"><label>Survival<input type="number" id="Survival" value="0" /></label></div>
+    <div class="stat"><label>Presence<input type="number" id="Presence" value="0" /></label></div>
+    <div class="stat"><label>Economy<input type="number" id="Economy" value="0" /></label></div>
+    <div class="stat"><label>Civilization<input type="number" id="Civilization" value="0" /></label></div>
+    <div class="stat"><label>Intelligence<input type="number" id="Intelligence" value="0" /></label></div>
+    <div class="stat"><label>Army<input type="number" id="Army" value="0" /></label></div>
+    <div class="stat"><label>Luck<input type="number" id="Luck" value="0" /></label></div>
+  </div>
   <div class="container">
     <div id="perk-title-list"></div>
   </div>
@@ -21,24 +31,18 @@
       const endIndex = text.indexOf("[anchor=LEVELING]LEVELING SYSTEM[/anchor]");
 
       const trimmedText = text.substring(startIndex, endIndex);
-
-      console.log(trimmedText);
       
       const titleRegex = /(?<=\[size=250\])(.*?)(?:\[\/size]\s*\[size=150\])(.*?)(?:\[\/size]\s*\[size=150\])(.*?)(?=\[\/size\])/g;
       const titleMatches = trimmedText.matchAll(titleRegex);
-
-      console.log(titleMatches);
       
       const listElement = document.getElementById('perk-title-list');
       listElement.innerHTML = ``;
 
       for (const match of titleMatches) {
-        console.log(match);
         const perkTitle = match[1];
         const reqs = match[2];
-        const reqsRegex = /[1-9]\s*((survival)|(presence)|(civilization)|(army)|(economy)|(luck)|(intelligence))/gi;
+        const reqsRegex = /([0-9])+\s*((survival)|(presence)|(civilization)|(army)|(economy)|(luck)|(intelligence))/gi;
         const parsedReqs = match[2].match(reqsRegex)
-        console.log(parsedReqs);
         const desc = match[3];
         
         const card = document.createElement('div');
