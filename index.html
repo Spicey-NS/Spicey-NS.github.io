@@ -73,7 +73,7 @@
         for (const match of parsedReqs) {
           parsedReqsData[match[2]] = match[1]
         }
-        const desc = match[3];
+        const desc = match[3].replace("&#37", "%");
         
         const card = document.createElement('div');
         card.style.border = '1px solid #ccc';
