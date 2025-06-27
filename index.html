@@ -18,6 +18,33 @@
   <script>
     const stats = ["Survival", "Presence", "Economy", "Civilization", "Intelligence", "Army", "Luck"];
     const cardData = [];
+
+    function getCurrentStats() {
+      const values = {};
+      for (const stat of stats) {
+        values[stat] = parseInt(document.getElementById(stat).value) || 0;
+      }
+      return values;
+    }  
+    function meetsRequirements(userStats, requirements) {
+      for (const stat in requirements) {
+        if ((userStats[stat] || 0) < requirements[stat]) return false;
+      }
+      return true;
+    }
+
+    function renderCards() {
+      const userStats = getCurrentStats();
+      const perkList = document.getElementById("perk-list");
+      perkList.innerHTML = ''; // Clear previous
+
+      for (const card of cardData) {
+        if (!meetsRequirements(userStats, card.requirements)) continue;
+        
+        perkList.appendChild(card.display);
+      }
+    }
+    
     fetch("https://www.nationstates.net/cgi-bin/api.cgi?q=dispatch;dispatchid=2669317", {
     })
     .then(response => response.text())
@@ -46,7 +73,6 @@
         for (const match of parsedReqs) {
           parsedReqsData[match[2]] = match[1]
         }
-        console.log(parsedReqsData);
         const desc = match[3];
         
         const card = document.createElement('div');
@@ -72,42 +98,15 @@
         const data = {display: card, requirements: parsedReqsData};
         cardData.push(data)
       }
+      renderCards();
     })
     .catch(err => {
       console.error("Error:", err);
     });
-  function getCurrentStats() {
-      const values = {};
-      for (const stat of stats) {
-        values[stat] = parseInt(document.getElementById(stat).value) || 0;
-      }
-      return values;
-    }  
-  function meetsRequirements(userStats, requirements) {
-      for (const stat in requirements) {
-        if ((userStats[stat] || 0) < requirements[stat]) return false;
-      }
-      return true;
-    }
-
-    function renderCards() {
-      const userStats = getCurrentStats();
-      const perkList = document.getElementById("perk-list");
-      perkList.innerHTML = ''; // Clear previous
-
-      for (const card of cardData) {
-        console.log(userStats, card);
-        if (!meetsRequirements(userStats, card.requirements)) continue;
-        
-        perkList.appendChild(card.display);
-      }
-    }
 
     for (const stat of stats) {
       document.getElementById(stat).addEventListener('input', renderCards);
     }
-
-    renderCards();
   </script>
 </body>
 </html>
