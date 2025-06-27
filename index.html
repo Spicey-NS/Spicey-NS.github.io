@@ -91,6 +91,7 @@
       perkList.innerHTML = ''; // Clear previous
 
       for (const card of cardData) {
+        console.log(userStats, card);
         if (!meetsRequirements(userStats, card.requirements)) continue;
         
         perkList.appendChild(card.display);
