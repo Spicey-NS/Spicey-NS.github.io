@@ -40,8 +40,13 @@
       for (const match of titleMatches) {
         const perkTitle = match[1];
         const reqs = match[2];
-        const reqsRegex = /([0-9])+\s*((survival)|(presence)|(civilization)|(army)|(economy)|(luck)|(intelligence))/gi;
-        const parsedReqs = match[2].match(reqsRegex)
+        const reqsRegex = /([0-9]+)\s*((survival)|(presence)|(civilization)|(army)|(economy)|(luck)|(intelligence))/gi;
+        const parsedReqs = match[2].matchAll(reqsRegex)
+        const parsedReqsData = {};
+        for (const match of parsedReqs) {
+          parsedReqsData[match[2]] = match[1]
+        }
+        console.log(parsedReqsData);
         const desc = match[3];
         
         const card = document.createElement('div');
@@ -64,7 +69,7 @@
         ul.appendChild(li2);
       
         card.appendChild(ul);
-        const data = {display: card, requirements: parsedReqs};
+        const data = {display: card, requirements: parsedReqsData};
         cardData.push(data)
       }
     })
